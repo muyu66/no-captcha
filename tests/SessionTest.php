@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Muyu\Controllers\SessionController;
 
-class SessionTest extends TestCase
+class SessionTest extends PHPUnit_Framework_TestCase
 {
     public function testGet()
     {

@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Muyu\Controllers\CaptchaController;
 use Muyu\Controllers\CacheController;
 
-class CaptchaTest extends TestCase
+class CaptchaTest extends PHPUnit_Framework_TestCase
 {
     public function testGenerate()
     {
