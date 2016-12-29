@@ -1,8 +1,10 @@
 <?php
 
+namespace TestCase;
+
 use Muyu\Controllers\CacheController;
 
-class CacheTest extends PHPUnit_Framework_TestCase
+class CacheTest extends TestCase
 {
     public function testDelAll()
     {

@@ -11,6 +11,12 @@ class CaptchaController
         $this->cache = $cache;
     }
 
+    public function view($params)
+    {
+        $ctl = new TemplateController();
+        return $ctl->view('code', $params);
+    }
+
     public function generate()
     {
         $session = new SessionController();

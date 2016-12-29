@@ -22,5 +22,10 @@
             "Muyu\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "TestCase\\": "tests/"
+        }
+    },
     "minimum-stability": "stable"
 }
