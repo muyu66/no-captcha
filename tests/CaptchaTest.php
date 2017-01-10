@@ -3,13 +3,13 @@
 namespace TestCase;
 
 use Muyu\Controllers\CaptchaController;
-use Muyu\Controllers\CacheController;
+use Muyu\Controllers\Drivers\Memcache;
 
 class CaptchaTest extends TestCase
 {
     public function testGenerate()
     {
-        $cache = new CacheController();
+        $cache = new Memcache();
         $cache->delAll();
         $ctl = new CaptchaController($cache);
         $result = $ctl->generate();
@@ -18,7 +18,7 @@ class CaptchaTest extends TestCase
 
     public function testValid()
     {
-        $cache = new CacheController();
+        $cache = new Memcache();
         $ctl = new CaptchaController($cache);
         // 模拟机器快速验证
         $result = $ctl->valid();
@@ -37,7 +37,7 @@ class CaptchaTest extends TestCase
 
     public function testQuery()
     {
-        $cache = new CacheController();
+        $cache = new Memcache();
         $ctl = new CaptchaController($cache);
         // 模拟成功验证
         $result = $ctl->query();

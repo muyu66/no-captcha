@@ -2,11 +2,13 @@
 
 namespace Muyu\Controllers;
 
+use Muyu\Controllers\Drivers\Memcache;
+
 class CaptchaController
 {
     private $cache;
 
-    public function __construct(CacheController $cache)
+    public function __construct(Memcache $cache)
     {
         $this->cache = $cache;
     }
@@ -59,7 +61,7 @@ class CaptchaController
         $session_id = $session->get();
 
         $is_allow = $this->cache->has('token-' . $session_id);
-        if (!$is_allow) {
+        if (! $is_allow) {
             return 'error';
         }
         $this->cache->del('token-' . $session_id);

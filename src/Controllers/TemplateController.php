@@ -16,7 +16,7 @@ class TemplateController
 
     private function checkViewExist($path)
     {
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             throw new Exception('This view is not found');
         }
     }
@@ -35,7 +35,7 @@ class TemplateController
      */
     private function dataBind($context, $params)
     {
-        if (!$params) {
+        if (! $params) {
             return $context;
         }
         $context = str_replace('v-url:generate', $params['generate'], $context);

@@ -120,7 +120,8 @@
         Inc
     </div>
 </div>
-{{--<button onclick="query()">login</button>--}}
+{{--
+<button onclick="query()">login</button>--}}
 
 <script>
     function generate() {
