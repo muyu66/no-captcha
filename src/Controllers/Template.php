@@ -8,22 +8,28 @@ class Template
 {
     public function view($name, $params = null)
     {
-        $path = $this->getViewPath($name);
-        $this->checkViewExist($path);
+        $paths = $this->getViewPath($name);
+        $path = $this->checkViewExist($paths);
         $context = file_get_contents($path);
         return $this->dataBind($context, $params);
     }
 
-    private function checkViewExist($path)
+    public function checkViewExist($paths)
     {
-        if (! file_exists($path)) {
-            throw new Exception('This view is not found');
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                return $path;
+            }
         }
+        throw new Exception('This view is not found');
     }
 
-    private function getViewPath($name)
+    public function getViewPath($name)
     {
-        return 'src/Views/' . $name . '.template.php';
+        return [
+            'src/Views/' . $name . '.template.php',
+            'vendor/muyu/no-captcha/src/Views/' . $name . '.template.php',
+        ];
     }
 
     /**
@@ -33,7 +39,7 @@ class Template
      * @return mixed
      * @author Zhou Yu
      */
-    private function dataBind($context, $params)
+    public function dataBind($context, $params)
     {
         if (! $params) {
             return $context;
