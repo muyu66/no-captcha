@@ -26,9 +26,16 @@ class Template
 
     public function getViewPath($name)
     {
+        /**
+         * 获取根目录
+         */
+        $tmp = explode('/', dirname(__FILE__));
+        array_pop($tmp);
+        $tmp = implode('/', $tmp);
+
         return [
             'src/Views/' . $name . '.template.php',
-            'vendor/muyu/no-captcha/src/Views/' . $name . '.template.php',
+            $tmp . '/Views/' . $name . '.template.php',
         ];
     }
 

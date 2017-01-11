@@ -120,8 +120,6 @@
         Inc
     </div>
 </div>
-{{--
-<button onclick="query()">login</button>--}}
 
 <script>
     function generate() {
@@ -131,17 +129,14 @@
             setTimeout("valid()", data * 1000);
         });
     }
+
     function valid() {
         ajax("v-url:valid", function (data) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('check_right').style.display = '';
         });
     }
-    //    function query() {
-    //        ajax("http://manage.airclass.app/test/t3", function (data) {
-    //            alert(data);
-    //        });
-    //    }
+
     function ajax(url, func) {
         var data = null;
         var xhr = new XMLHttpRequest();

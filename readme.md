@@ -19,17 +19,25 @@
         
     public function getCode()
     {
-        $this->captcha->generate();
         $ctl = new Template();
-        return $ctl->view('code');
+        return $ctl->view('code', [
+            'generate' => 'http://127.0.0.1/auth/code-generate',
+            'valid' => 'http://127.0.0.1/auth/code-valid',
+            'query' => 'http://127.0.0.1/auth/code-query',
+        ]);
+    }
+        
+    public function getCodeGenerate()
+    {
+        return $this->captcha->generate();
     }
         
     public function getCodeValid()
     {
-        $this->captcha->valid();
+        return $this->captcha->valid();
     }
         
     public function getCodeQuery()
     {
-        $this->captcha->query();
+        return $this->captcha->query();
     }
