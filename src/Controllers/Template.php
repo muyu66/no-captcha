@@ -4,7 +4,7 @@ namespace Muyu\Controllers;
 
 use Exception;
 
-class TemplateController
+class Template
 {
     public function view($name, $params = null)
     {

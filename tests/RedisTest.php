@@ -2,37 +2,37 @@
 
 namespace TestCase;
 
-use Doctrine\Common\Cache\MemcachedCache;
-use Muyu\Controllers\Drivers\Memcache;
-use Memcached;
+use Doctrine\Common\Cache\PredisCache;
+use Muyu\Controllers\Drivers\Redis;
+use Predis\Client;
 
-class MemcacheTest extends TestCase
+class RedisTest extends TestCase
 {
-    private $memcache;
+    private $redis;
 
     public function setUp()
     {
         parent::setUp();
         $config = require('./config.php');
-        $host = $config['connections']['memcache']['host'];
-        $port = $config['connections']['memcache']['port'];
+        $host = $config['connections']['redis']['host'];
+        $port = $config['connections']['redis']['port'];
+        $database = $config['connections']['redis']['database'];
+        $password = $config['connections']['redis']['password'];
 
-        $memcached = new Memcached();
-        $memcached->setOption(Memcached::OPT_COMPRESSION, false);
-        $memcached->addServer($host, $port);
-        $this->memcache = $memcached;
+        $redis = new Client(compact('host', 'port', 'database', 'password'));
+        $this->redis = $redis;
     }
 
     public function testGetInstance()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $instance = $ctl->getInstance();
-        $this->assertInstanceOf(MemcachedCache::class, $instance);
+        $this->assertInstanceOf(PredisCache::class, $instance);
     }
 
     public function testDelAll()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $ctl->delAll();
         $result = $ctl->get('unit');
         $this->assertEquals(null, $result);
@@ -40,21 +40,21 @@ class MemcacheTest extends TestCase
 
     public function testSet()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $result = $ctl->set('unit', 'unit111', 2);
         $this->assertEquals(true, $result);
     }
 
     public function testGet()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $result = $ctl->get('unit');
         $this->assertEquals('unit111', $result);
     }
 
     public function testDel()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $this->testSet();
         $result = $ctl->del('unit');
         $this->assertEquals(true, $result);
@@ -62,7 +62,7 @@ class MemcacheTest extends TestCase
 
     public function testHas()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $this->testSet();
         $result = $ctl->has('unit');
         $this->assertEquals(true, $result);
@@ -73,7 +73,7 @@ class MemcacheTest extends TestCase
 
     public function testIncr()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $result = $ctl->incr('unit', 1);
         $this->assertEquals(null, $result);
         $ctl->set('unit', '0', 2);
@@ -83,7 +83,7 @@ class MemcacheTest extends TestCase
 
     public function testSetStyle()
     {
-        $ctl = new Memcache($this->memcache);
+        $ctl = new Redis($this->redis);
         $this->assertEquals('muyu-no-captcha/unit', $ctl->getKey('unit'));
         $ctl->setStyle('google', '-');
         $this->assertEquals('google-unit', $ctl->getKey('unit'));

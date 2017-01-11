@@ -2,7 +2,7 @@
 
 namespace Muyu\Controllers;
 
-class SessionController
+class Session
 {
     public function get()
     {

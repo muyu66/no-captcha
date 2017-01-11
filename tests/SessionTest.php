@@ -2,13 +2,13 @@
 
 namespace TestCase;
 
-use Muyu\Controllers\SessionController;
+use Muyu\Controllers\Session;
 
 class SessionTest extends TestCase
 {
     public function testGet()
     {
-        $ctl = new SessionController();
+        $ctl = new Session();
         $this->assertEquals('', $ctl->get());
     }
 }

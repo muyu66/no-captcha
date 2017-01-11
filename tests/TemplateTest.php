@@ -2,19 +2,19 @@
 
 namespace TestCase;
 
-use Muyu\Controllers\TemplateController;
+use Muyu\Controllers\Template;
 
 class TemplateTest extends TestCase
 {
     public function testView()
     {
-        $ctl = new TemplateController();
+        $ctl = new Template();
         $this->assertContains('function', $ctl->view('code'));
     }
 
     public function testGetViewPath($code = 'code')
     {
-        $path = $this->getPrivate(TemplateController::class, 'getViewPath', $code);
+        $path = $this->getPrivate(Template::class, 'getViewPath', $code);
         $this->assertTrue($path && is_string($path), $path);
         return $path;
     }
@@ -23,12 +23,12 @@ class TemplateTest extends TestCase
     {
         // 模拟访问正确的 View
         $path = $this->testGetViewPath();
-        $result = $this->getPrivate(TemplateController::class, 'checkViewExist', $path);
+        $result = $this->getPrivate(Template::class, 'checkViewExist', $path);
         $this->assertTrue(is_null($result));
         // 模拟访问不存在的 View
         $path = $this->testGetViewPath('code2');
         $func = function () use ($path) {
-            return $this->getPrivate(TemplateController::class, 'checkViewExist', $path);
+            return $this->getPrivate(Template::class, 'checkViewExist', $path);
         };
         $this->assertException($func);
     }
@@ -36,7 +36,7 @@ class TemplateTest extends TestCase
     public function testDataBind()
     {
         $result = $this->getPrivate(
-            TemplateController::class,
+            Template::class,
             'dataBind',
             [
                 'a=v-url:generate,b=v-url:valid,c=v-url:query',
