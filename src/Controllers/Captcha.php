@@ -60,14 +60,14 @@ class Captcha
             $this->driver->del($session_id);
             $this->driver->del('block-' . $session_id);
             $this->driver->set('token-' . $session_id, '', 30);
-            return 'yes';
+            return 1;
         } else {
             if ($this->driver->has('block-' . $session_id)) {
                 $this->driver->incr('block-' . $session_id, 30);
             } else {
                 $this->driver->set('block-' . $session_id, '0', 30);
             }
-            return 'no';
+            return 0;
         }
     }
 
@@ -78,9 +78,9 @@ class Captcha
 
         $is_allow = $this->driver->has('token-' . $session_id);
         if (! $is_allow) {
-            return 'error';
+            return 0;
         }
         $this->driver->del('token-' . $session_id);
-        return '';
+        return 1;
     }
 }

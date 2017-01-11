@@ -1,5 +1,7 @@
 ## Muyu No-Captcha
 
+### Building...
+
 ### How to use ?
 
     private $captcha;
@@ -27,6 +29,14 @@
         ]);
     }
         
+    public function postLogin()
+    {
+        if(! $this->getCodeQuery())
+        {
+            throw new Exception('you are robot');
+        }
+    }
+        
     public function getCodeGenerate()
     {
         return $this->captcha->generate();
@@ -37,7 +47,7 @@
         return $this->captcha->valid();
     }
         
-    public function getCodeQuery()
+    private function getCodeQuery()
     {
         return $this->captcha->query();
     }
