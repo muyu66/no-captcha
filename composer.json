@@ -4,12 +4,12 @@
     "type": "library",
     "require": {
         "php": ">=5.5.9",
-        "doctrine/cache": "^1.6",
-        "symfony/var-dumper": "2.7.*"
+        "doctrine/cache": "^1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "symfony/var-dumper": "^3.2"
     },
     "license": "MIT",
     "authors": [

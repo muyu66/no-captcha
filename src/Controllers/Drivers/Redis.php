@@ -15,14 +15,6 @@ class Redis extends Driver
 
     public function setInstance($instance)
     {
-        $config = require('./config.php');
-        $host = $config['connections']['redis']['host'];
-        $port = $config['connections']['redis']['port'];
-        $database = $config['connections']['redis']['database'];
-        $password = $config['connections']['redis']['password'];
-
-        $redis = new Client(compact('host', 'port', 'database', 'password'));
-
-        $this->instance = new PredisCache($redis);
+        $this->instance = new PredisCache($instance);
     }
 }
