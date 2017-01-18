@@ -6,7 +6,7 @@
         text-align: center;
         background: #f9f9f9;
         color: #000;
-        height: 74px;
+        height: 72px;
     }
 
     .mid {
@@ -106,33 +106,35 @@
     }
 </style>
 
-<div class="box">
+<div class="box" onclick="generate()">
     <div class="left">
-        <button id="check_box" class="button" onclick="generate()"></button>
+        <button id="check_box" class="button"></button>
         <div class="spinner" id="loading" style="display: none;"></div>
         <button id="check_right" class="info_right" style="display: none;">☑</button>
     </div>
     <div class="mid">
-        吾非机器人也
+        v-bind:message
     </div>
     <div class="right">
-        Muyu<br/>
-        Inc
+        v-bind:name<br/>
+        v-bind:sign
     </div>
 </div>
 
 <script>
     function generate() {
-        document.getElementById('check_box').style.display = 'none';
         document.getElementById('loading').style.display = '';
-        ajax("v-url:generate", function (data) {
+        document.getElementById('check_box').style.display = 'none';
+        document.getElementById('check_right').style.display = 'none';
+        ajax("v-bind:generate", function (data) {
             setTimeout("valid()", data * 1000);
         });
     }
 
     function valid() {
-        ajax("v-url:valid", function (data) {
+        ajax("v-bind:valid", function (data) {
             document.getElementById('loading').style.display = 'none';
+            document.getElementById('check_box').style.display = 'none';
             document.getElementById('check_right').style.display = '';
         });
     }
