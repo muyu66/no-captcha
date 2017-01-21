@@ -106,7 +106,7 @@
     }
 </style>
 
-<div class="box" onclick="generate()">
+<div class="box">
     <div class="left">
         <button id="check_box" class="button"></button>
         <div class="spinner" id="loading" style="display: none;"></div>
@@ -120,35 +120,3 @@
         v-bind:sign
     </div>
 </div>
-
-<script>
-    function generate() {
-        document.getElementById('loading').style.display = '';
-        document.getElementById('check_box').style.display = 'none';
-        document.getElementById('check_right').style.display = 'none';
-        ajax("v-bind:generate", function (data) {
-            setTimeout("valid()", data * 1000);
-        });
-    }
-
-    function valid() {
-        ajax("v-bind:valid", function (data) {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('check_box').style.display = 'none';
-            document.getElementById('check_right').style.display = '';
-        });
-    }
-
-    function ajax(url, func) {
-        var data = null;
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                func(this.responseText);
-            }
-        });
-        xhr.open("GET", url);
-        xhr.send(data);
-    }
-</script>

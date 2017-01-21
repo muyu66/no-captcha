@@ -41,16 +41,13 @@ class TemplateTest extends TestCase
     {
         $ctl = new Template();
         $result = $ctl->dataBind(
-            'a=v-bind:generate,b=v-bind:valid,c=v-bind:query,d=v-bind:name,e=v-bind:sign,f=v-bind:message',
+            'd=v-bind:name,e=v-bind:sign,f=v-bind:message',
             [
-                'generate' => '1',
-                'valid' => '2',
-                'query' => '3',
                 'name' => '4',
                 'sign' => '5',
                 'message' => '6',
             ]
         );
-        $this->assertEquals('a=1,b=2,c=3,d=4,e=5,f=6', $result);
+        $this->assertEquals('d=4,e=5,f=6', $result);
     }
 }

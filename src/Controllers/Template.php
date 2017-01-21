@@ -51,9 +51,6 @@ class Template
         if (! $params) {
             return $context;
         }
-        $context = str_replace('v-bind:generate', $params['generate'], $context);
-        $context = str_replace('v-bind:valid', $params['valid'], $context);
-        $context = str_replace('v-bind:query', $params['query'], $context);
         $context = str_replace('v-bind:name', $params['name'], $context);
         $context = str_replace('v-bind:sign', $params['sign'], $context);
         $context = str_replace('v-bind:message', $params['message'], $context);
